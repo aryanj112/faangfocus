@@ -35,6 +35,7 @@ Every element of the problem MUST reflect the specified company's domain:
 - Netflix: movies, watch history, recommendations, ratings
 - Uber: rides, drivers, locations, routes, pricing
 The problem must feel authentic to that company's interview style.
+These are examples and replicate this for any other type of company the user enters
 
 MANDATORY JSON SCHEMA:
 
