@@ -19,7 +19,7 @@ const StartButton = () => {
         }
     }
     return (
-        <Button onClick={handleSubmit}>
+        <Button onClick={handleSubmit} className="text-xl w-[10rem] h-[2rem]">
             Get Started
         </Button>
     )
