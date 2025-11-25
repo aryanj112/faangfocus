@@ -6,7 +6,6 @@ import Footer from "@/components/footer";
 
 import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
 import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
 // import { DeployButton } from "@/components/deploy-button";
 
 export default function Home() {

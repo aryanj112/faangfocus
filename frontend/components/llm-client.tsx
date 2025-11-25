@@ -13,27 +13,55 @@ import {
     PromptInputTools,
 } from '@/components/ui/shadcn-io/ai/prompt-input';
 import { MicIcon, PaperclipIcon } from 'lucide-react';
-import { type FormEventHandler, useState } from 'react';
+import { type FormEventHandler, use, useState } from 'react';
+
 const models = [
     { id: 'gpt-4o', name: 'GPT-4o' },
     { id: 'claude-3-5-sonnet-20241022', name: 'Claude 3.5 Sonnet' },
     { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro' },
 ];
-const LlmClient = () => {
+
+interface LlmClientProps {
+    updateProblem: (value: [string, any][]) => void
+}
+
+const LlmClient = ({ updateProblem }: LlmClientProps) => {
     const [text, setText] = useState<string>('');
     const [model, setModel] = useState<string>(models[0].id);
     const [status, setStatus] = useState<
         'submitted' | 'streaming' | 'ready' | 'error'
     >('ready');
-    const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+
+    const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
         if (!text) {
             return;
         }
-        setStatus('submitted');
         setTimeout(() => {
             setStatus('streaming');
         }, 200);
+
+        console.log("Fetching problem for request:", text)
+
+        const response = await fetch("http://127.0.0.1:8000/generate/problem", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ human_message: text }),
+        });
+
+        // if (!response.ok) {
+        //     throw new Error(`Response Status: ${response.status}`)
+        // }
+        const result = await response.json()
+        const arrResult = Object.entries(result)
+
+        updateProblem(arrResult)
+
+        // console.log(result)
+
+        setStatus('submitted');
         setTimeout(() => {
             setStatus('ready');
             setText('');
