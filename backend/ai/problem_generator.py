@@ -124,5 +124,4 @@ Generate your response now.
 def llm_problem_generation(human_message):
     messages = [("system", system_message), ("human", human_message)]
     ai_msg = llm.invoke(messages)
-    # return ai_msg
     return json.loads(ai_msg.text.replace("\n", ""))
