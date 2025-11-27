@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/shadcn-io/ai/prompt-input';
 import { MicIcon, PaperclipIcon } from 'lucide-react';
 import { type FormEventHandler, use, useState } from 'react';
+import { Problem } from '@/app/utils/types';
 
 const models = [
     { id: 'gpt-4o', name: 'GPT-4o' },
@@ -22,10 +23,11 @@ const models = [
 ];
 
 interface LlmClientProps {
-    updateProblem: (value: [string, any][]) => void
+    updateProblem: (value: Problem) => void,
+    updateLoading: (value: boolean) => void,
 }
 
-const LlmClient = ({ updateProblem }: LlmClientProps) => {
+const LlmClient = ({ updateProblem, updateLoading }: LlmClientProps) => {
     const [text, setText] = useState<string>('');
     const [model, setModel] = useState<string>(models[0].id);
     const [status, setStatus] = useState<
@@ -37,6 +39,7 @@ const LlmClient = ({ updateProblem }: LlmClientProps) => {
         if (!text) {
             return;
         }
+        updateLoading(true);
         setTimeout(() => {
             setStatus('streaming');
         }, 200);
@@ -55,11 +58,9 @@ const LlmClient = ({ updateProblem }: LlmClientProps) => {
         //     throw new Error(`Response Status: ${response.status}`)
         // }
         const result = await response.json()
-        const arrResult = Object.entries(result)
 
-        updateProblem(arrResult)
-
-        // console.log(result)
+        updateProblem(result)
+        updateLoading(false);
 
         setStatus('submitted');
         setTimeout(() => {

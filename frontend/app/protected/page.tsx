@@ -16,11 +16,21 @@ import LlmClient from "@/components/llm-client";
 // }
 
 
+import ProblemGenerator from "@/components/problem-generater";
 
 export default function ProtectedPage() {
   return (
-    <div className="flex flex-col h-full justify-end">
-      {/* <LlmClient /> */}
+    <div className="flex">
+      <div className="w-[25rem]">
+
+      </div>
+
+
+      <div className="flex flex-col w-[80%] min-h-screen items-center justify-end">
+        <ProblemGenerator />
+
+      </div>
     </div>
+
   );
 }

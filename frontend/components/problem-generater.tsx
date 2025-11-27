@@ -2,15 +2,15 @@
 
 import LlmClient from "@/components/llm-client";
 import { useState } from "react";
-
+import { Spinner } from "@/components/ui/spinner"
+import { Problem } from "@/app/utils/types";
 const ProblemGenerator = () => {
-    const [problem, setProblem] = useState<[string, any][]>([]);
+    const [problem, setProblem] = useState<Problem | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     return (
-        <div>
-
-            {/* <p>{problem}</p> */}
+        <div className="w-[80%] h-full flex flex-col items-center">
+            {isLoading ? <Spinner className="size-lg" /> : problem?.description}
             <LlmClient updateProblem={setProblem} updateLoading={setIsLoading} />
         </div>
     )
