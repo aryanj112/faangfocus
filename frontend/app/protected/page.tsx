@@ -17,17 +17,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function ProtectedPage() {
   return (
-
-
-
-
-    <div className="flex">
-      <div className="flex flex-col w-[80%] min-h-screen items-center justify-end">
-        <ProblemGenerator />
-      </div>
+    <div className="flex flex-col w-full items-center justify-end">
+      <ProblemGenerator />
     </div>
-
-
-
   );
 }

@@ -69,7 +69,7 @@ const LlmClient = ({ updateProblem, updateLoading }: LlmClientProps) => {
         }, 2000);
     };
     return (
-        <div className='p-8 w-full'>
+        <div className='w-full'>
             <PromptInput onSubmit={handleSubmit}>
                 <PromptInputTextarea
                     onChange={(e: any) => setText(e.target.value)}

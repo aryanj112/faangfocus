@@ -9,11 +9,11 @@ const ProblemGenerator = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     return (
-        <div className="w-[80%] h-full flex flex-col items-center">
+        <div className="w-[80%] flex flex-col justify-end">
             {isLoading ? <Spinner className="size-lg" /> : problem?.description}
             <LlmClient updateProblem={setProblem} updateLoading={setIsLoading} />
         </div>
-    )
+    );
 }
 
 export default ProblemGenerator
