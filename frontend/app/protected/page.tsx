@@ -1,8 +1,3 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import LlmClient from "@/components/llm-client";
-
-
 // import { InfoIcon } from "lucide-react";
 // import { FetchDataSteps } from "@/components/tutorial/fetch-data-steps";
 // import { Suspense } from "react";
@@ -17,20 +12,22 @@ import LlmClient from "@/components/llm-client";
 
 
 import ProblemGenerator from "@/components/problem-generater";
+import { AppSidebar } from "@/components/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function ProtectedPage() {
   return (
+
+
+
+
     <div className="flex">
-      <div className="w-[25rem]">
-
-      </div>
-
-
       <div className="flex flex-col w-[80%] min-h-screen items-center justify-end">
         <ProblemGenerator />
-
       </div>
     </div>
+
+
 
   );
 }
