@@ -6,6 +6,11 @@ import { Spinner } from "@/components/ui/spinner"
 import { Problem } from "@/app/utils/types";
 import TypingText from "@/components/ui/shadcn-io/typing-text";
 import { TextGenerateEffect } from "@/components/ui/shadcn-io/text-generate-effect";
+import { ShimmeringText } from "@/components/ui/shadcn-io/shimmering-text";
+import { Button } from "./ui/button";
+import { motion } from "framer-motion";
+import ExploreProblem from "./explore-problem";
+
 
 const ProblemGenerator = () => {
     const [problem, setProblem] = useState<Problem | null>(null);
@@ -31,7 +36,7 @@ const ProblemGenerator = () => {
                     pauseDuration={1500}
                     showCursor={true}
                     cursorCharacter="|"
-                    className="text-xl font-bold"
+                    className="text-2xl font-bold"
                     textColors={['#3B82F6', '#FF47A3', '#06B6D4']}
                     variableSpeed={{ min: 50, max: 120 }}
                 />
@@ -42,10 +47,14 @@ const ProblemGenerator = () => {
     const ProblemGenerating = () => {
         if (!problem && isLoading) {
             return (
-                <div className="flex flex-col gap-[2rem] items-center" >
-                    <p className="text-3xl font-bold">
-                        Your Problem Is Being Generated...
-                    </p>
+                <div className="flex flex-col gap-[3rem] items-center" >
+                    <ShimmeringText
+                        text="Your Problem Is Being Generated . . . "
+                        duration={2}
+                        wave={true}
+                        className="text-3xl font-bold"
+                        shimmeringColor="hsl(var(--primary))"
+                    />
                     <Spinner className="size-[2rem]" />
                 </div>
             );
@@ -56,22 +65,43 @@ const ProblemGenerator = () => {
     const ProblemDesc = () => {
         if (problem) {
             return (
-                <TextGenerateEffect
-                    words={problem.description}
-                    duration={0.6}
-                    staggerDelay={0.15}
-                    filter={true}
-                />
+                <>
+                    <TextGenerateEffect
+                        words={problem.title}
+                        duration={0.8}
+                        staggerDelay={0.25}
+                        filter={true}
+                        className="text-2xl"
+                    />
+                    <TextGenerateEffect
+                        words={problem.description}
+                        duration={2}
+                        staggerDelay={0.025}
+                        filter={true}
+                        className="text-lg text-center"
+                    />
+                    <motion.div
+                        initial={{ opacity: 0, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, filter: "blur(0px)" }}
+                        transition={{ duration: 4, delay: 0.3 }}
+                    >
+                        <ExploreProblem />
+                    </motion.div>
+                </>
             );
         }
     }
 
     return (
-        <div className="w-[80%] flex flex-col justify-end items-center">
-            <ProblemDesc />
-            <Recommendations />
-            <ProblemGenerating />
-            <LlmClient updateProblem={setProblem} updateLoading={setIsLoading} />
+        <div className="w-full h-full flex flex-col items-center justify-between py-10">
+            <div className="w-[80%] flex flex-col items-center gap-10 mt-20">
+                <ProblemDesc />
+                <Recommendations />
+                <ProblemGenerating />
+            </div>
+            <div className="w-[80%] pb-[3rem]">
+                <LlmClient updateProblem={setProblem} updateLoading={setIsLoading} />
+            </div>
         </div>
     );
 }
