@@ -8,7 +8,9 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-const ExploreProblem = () => {
+import { Problem } from "@/app/utils/types";
+
+const ExploreProblem = ({ problem }: { problem: Problem }) => {
     return (
         <Dialog>
             <DialogTrigger>
@@ -33,10 +35,9 @@ const ExploreProblem = () => {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogTitle>{problem.title}</DialogTitle>
                     <DialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
+                        {problem.description}
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>

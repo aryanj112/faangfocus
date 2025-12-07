@@ -85,7 +85,7 @@ const ProblemGenerator = () => {
                         animate={{ opacity: 1, filter: "blur(0px)" }}
                         transition={{ duration: 4, delay: 0.3 }}
                     >
-                        <ExploreProblem />
+                        <ExploreProblem problem={problem} />
                     </motion.div>
                 </>
             );

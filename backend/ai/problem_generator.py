@@ -5,7 +5,7 @@ import json
 load_dotenv(find_dotenv())
 
 llm = ChatOpenAI(
-    model="gpt-5-nano",
+    model="gpt-4o",
     # stream_usage=True,
     # temperature=None,
     # max_tokens=None,
